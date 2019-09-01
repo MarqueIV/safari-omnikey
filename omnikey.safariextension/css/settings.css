@@ -147,14 +147,26 @@ tbody tr:nth-child(even){
   display: block;
 }
 
+.searchPlaceholder{
+  font-weight: bold;
+  color: blue;
+}
 table th.key,
 table td.key{
-  width: 25%;
+  width: 5%;
+  white-space: nowrap;
+}
+
+table th.description,
+table td.description{
+  width: 5%;
+  white-space: nowrap;
 }
 
 table th.url,
 table td.url{
-  width: 75%;
+  width: 90%;
+  white-space: nowrap;
 }
 
 #import-export textarea {

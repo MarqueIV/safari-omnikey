@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>Author</key>
-	<string>Mario Estrada</string>
+	<string>Mario Estrada/Mark Donohoe</string>
 	<key>Builder Version</key>
-	<string>12603.1.30.0.34</string>
+	<string>14607.3.9</string>
 	<key>CFBundleDisplayName</key>
-	<string>Omnikey</string>
+	<string>Omnikey MD</string>
 	<key>CFBundleIdentifier</key>
 	<string>ec.mario.omnikey</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -30,7 +30,7 @@
 				<key>Height</key>
 				<integer>400</integer>
 				<key>Identifier</key>
-				<string>Sites</string>
+				<string>Sites Popover</string>
 				<key>Width</key>
 				<integer>320</integer>
 			</dict>
@@ -45,7 +45,7 @@
 				<key>Label</key>
 				<string>OmniKey</string>
 				<key>Popover</key>
-				<string>Sites</string>
+				<string>Sites Popover</string>
 				<key>Tool Tip</key>
 				<string>OmniKey Settings</string>
 			</dict>
@@ -64,7 +64,7 @@
 	<key>Description</key>
 	<string>Keyword searches for Safari's Omnibar-like search.</string>
 	<key>DeveloperIdentifier</key>
-	<string>B2VSUSJ7UP</string>
+	<string>93V7NKU5YR</string>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
 	<key>Permissions</key>

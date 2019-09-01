@@ -2,8 +2,9 @@
 (function() {
   var INITIAL_STATE = [];
   var DEFAULT_SITE = {
-    key: 'key',
-    url: 'http://example.com/?q={search}',
+    key         : 'key',
+    description : "Description",
+    url         : 'http://example.com/?q={search}',
   };
 
   var $byId = function (id) {
@@ -12,16 +13,9 @@
   var arrClone = function(array) {
     return array.slice(0);
   };
-  var getName = function(site) {
-    var link = document.createElement('a');
-    link.href = site.url;
 
-    if (link.hostname.length <= 0) {
-      return link.href;
-    }
-
-    var domain = link.hostname.replace('www.', '');
-    return domain[0].toUpperCase() + domain.slice(1);
+  var getUrlDisplayName = function(site) {
+    return site.url.replace('{search}', '<span class="searchPlaceholder">{search}</span>')
   };
 
   var $doc = $(document);
@@ -49,7 +43,7 @@
         newSites.splice(action.index, 1);
         safari.extension.globalPage.contentWindow.trackEvent([
           'Removed Site',
-          state.sites[action.index].key + '|' + state.sites[action.index].url
+          state.sites[action.index].key + '|' + state.sites[action.index].description + '|' + state.sites[action.index].url
         ]);
         return {
           sites: newSites,
@@ -184,9 +178,9 @@
       this.store.dispatch({
         type: 'ADD',
         site: {
-          key: DEFAULT_SITE.key,
-          url: safari.application.activeBrowserWindow.activeTab.url ||
-            DEFAULT_SITE.url
+          key         : DEFAULT_SITE.key,
+          description : DEFAULT_SITE.description,
+          url         : safari.application.activeBrowserWindow.activeTab.url || DEFAULT_SITE.url
         },
       });
     },
@@ -211,9 +205,10 @@
       }
       var loadedSites = data.map(function(site) {
         return {
-          key: site.key,
-          url: site.url,
-          default: site.default
+          key         : site.key,
+          description : site.description,
+          url         : site.url,
+          default     : site.default
         };
       });
       this.store = Redux.createStore(sites, {
@@ -276,7 +271,7 @@
       this.$sites.append(view.render().el);
 
       $('#default_search').append(
-        this.option_template(Object.assign({name: getName(site)}, site))
+        this.option_template(Object.assign({name: site.description}, site))
       );
     }
   });
@@ -289,6 +284,10 @@
           <input class="key" data-key="key" value="<%= key %>" />\
           <span class="label"><%= key %></span>\
       </td>\
+      <td class="description">\
+        <input class="description" data-key="description" value="<%= description %>" />\
+        <span class="label"><%= description %></span>\
+      </td>\
       <td class="url">\
           <a href="#delete" class="remove">+</a>\
           <input class="url" data-key="url" value="<%= url %>" />\
@@ -297,10 +296,10 @@
     ),
 
     events: {
-      'click td': 'edit',
-      'blur td input': 'done',
-      'keypress td input': 'keypress',
-      'click .remove': 'removeSite'
+      'click td'          : 'edit',
+      'blur td input'     : 'done',
+      'keypress td input' : 'keypress',
+      'click .remove'     : 'removeSite'
     },
 
     initialize: function() {
@@ -356,7 +355,7 @@
       this.$el.html(
         this.template(
           Object.assign({
-            name: getName(this.model.site)
+            name: getUrlDisplayName(this.model.site)
           },
           this.model.site)
         )
